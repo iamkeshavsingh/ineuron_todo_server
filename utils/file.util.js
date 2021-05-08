@@ -1,20 +1,14 @@
-var fs = require('fs');
+var fs = require('fs').promises;
 
 
-exports.getFileContent = function (fileName, cb) {
+exports.getFileContent = function (fileName) {
 
-    fs.readFile(fileName, function (err, data) {
-        if (err) return cb(err, null);
-        return cb(null, JSON.parse(data.toString()));
-    });
+    return fs.readFile(fileName)
+        .then(data => JSON.parse(data.toString()));
 }
 
+exports.writeFileContent = function (fileName, data) {
 
-exports.writeFileContent = function (fileName, data, cb) {
-
-    fs.writeFile(fileName, JSON.stringify(data), function cb1(err) {
-        if (err) return cb(err, null);
-        return cb(null, 'Created');
-    });
-
+    return fs.writeFile(fileName, JSON.stringify(data))
+        .then(_ => 'Created')
 }
