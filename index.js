@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 
+const errorHandler = require('./utils/error.utils');
+
+
 const todoRoutes = require('./routes/todo.route');
 
 
@@ -11,6 +14,9 @@ app.use(express.json());
 
 
 app.use('/api/todos', todoRoutes);
+
+
+app.use(errorHandler);
 
 
 

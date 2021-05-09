@@ -1,14 +1,14 @@
 var fs = require('fs').promises;
 
 
-exports.getFileContent = function (fileName) {
+exports.getFileContent = async function (fileName) {
 
-    return fs.readFile(fileName)
-        .then(data => JSON.parse(data.toString()));
+    var bufferData = await fs.readFile(fileName);
+    return JSON.parse(bufferData.toString());
 }
 
-exports.writeFileContent = function (fileName, data) {
+exports.writeFileContent = async function (fileName, data) {
 
-    return fs.writeFile(fileName, JSON.stringify(data))
-        .then(_ => 'Created')
+    await fs.writeFile(fileName, JSON.stringify(data))
+    return 'Created';
 }
